@@ -11,12 +11,29 @@ table {
 	 width: 30%;
 }
 
+
+.table2 {
+	 margin: auto;
+	 	 width: 15%;
+	 display: inline-block;
+	 vertical-align: bottom;
+}
+
 .pinyin {
 	height: 20px;
 	font-size: 1.1em;
 	letter-spacing: 3px;
 	font-weight: 400;
 }
+
+.response {
+    padding-top: 100px;
+
+	height: 60px;
+	font-size: 1.5em;
+	font-weight: 800;
+}
+
 
 td {
 	font-size: 8em;
@@ -35,14 +52,25 @@ h2 {
 }
 
 p {
-	font-weight: 700;
+	font-weight: 600;
 	letter-spacing: 1px;
-	word-spacing: 2px;
+	word-spacing: 5px;
+		background:#ef941a;
+			border-radius: 5px;
+	width: 150px;
+	height: 30px;
+	align: center;
+	margin: auto;
+	line-height: 1;
+
+
 }
 
-button {
+
+button2 {
 	background-color: #ef941a;
-	color: #fffbe2;
+	background:#ef941a;
+	color:  #ffe392;
 	width: 200px;
 	position: relative;
 	border-radius: 5px;
@@ -55,6 +83,33 @@ button {
 	font-size: 0.9em;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	vertical-align: bottom;
+}
+button2:hover, button2:focus {
+	background-color: #efa134;
+}
+
+
+
+
+
+button {
+	background-color: #ef941a;
+	color: #ffe392;
+	width: 150px;
+	height: 150px;
+	position: relative;
+	border-radius: 5px;
+	margin: 0;
+	padding: 0;
+	line-height: 0.5;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	font-size: 8em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	display: inline;
 }
 
 button:hover, button:focus {
@@ -62,6 +117,80 @@ button:hover, button:focus {
 }
 
 button:active {
-	transform: translate(0px, 2px);
-	-webkit-transform: translate(0px, 2px);
+	transform: translate(0px, 0px);
+	-webkit-transform: scale(2.0);
+	-webkit-transform: translate(0px, 0px);
+		width: 175px;
+	height: 175px;
+		font-size: 10em;
+
   }
+
+  .microphone {
+  align-items: center;
+  display: flex;
+  height: 300px;
+  font-size: 12em;
+  -webkit-transform: scale(2.0);
+
+  transform: scale(1.2);
+
+  justify-content: center;
+  display: inline;
+}
+
+.button {
+  cursor: pointer;
+  &:active, &:focus {
+   border: 1px solid #274957;
+   color: #274957;
+   outline: none;
+  }
+  &--microphone {
+    background-color: transparent;
+    border: 1px solid #447694;
+    border-radius: 50%;
+    color: #447694;
+    font-size: 12em;
+
+    font-size: 200px;
+    height: 200px;
+    transition: all .1s;
+    width: 200px;
+  }
+
+  &--microphone-active {
+    background-color: transparent;
+    border: 1px solid #ff5852;
+    border-radius: 50%;
+    color: #ff5852;
+    font-size: 12em;
+    height: 300px;
+    transition: all .1s;
+    width: 300px;
+
+    &:active, &:focus {
+     border: 1px solid #ff5852;
+     color: #ff5852;
+     outline: none;
+    }
+  }
+
+  &--microphone-recording-failure {
+    border-color: red;
+    color: red;
+    &:active, &:focus {
+      border-color: red;
+      color: red;
+    }
+  }
+
+  &--microphone-recording-success {
+    border-color: #88d8b0;
+    color: #88d8b0;
+    &:active, &:focus {
+      border-color: #88d8b0;
+      color: #88d8b0;
+    }
+  }
+}

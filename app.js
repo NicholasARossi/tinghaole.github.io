@@ -9,14 +9,23 @@ var input; 							//MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
+//var recordButton = document.getElementById("recordButton");
+//var stopButton = document.getElementById("stopButton");
+//var pauseButton = document.getElementById("pauseButton");
+//
+////add events to those 2 buttons
+//recordButton.addEventListener("click", startRecording);
+//stopButton.addEventListener("click", stopRecording);
+//pauseButton.addEventListener("click", pauseRecording);
+
+var recording = false;
+var recordButton = document.getElementById('recordButton');
+
+var microphoneButton = document.getElementById("js-microphone");
 
 //add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-pauseButton.addEventListener("click", pauseRecording);
+microphoneButton.addEventListener("mousedown", startRecording);
+microphoneButton.addEventListener("mouseup", stopRecording);
 
 function startRecording() {
 	console.log("recordButton clicked");
@@ -32,9 +41,9 @@ function startRecording() {
     	Disable the record button until we get a success or fail from getUserMedia()
 	*/
 
-	recordButton.disabled = true;
-	stopButton.disabled = false;
-	pauseButton.disabled = false
+//	recordButton.disabled = true;
+//	stopButton.disabled = false;
+//	pauseButton.disabled = false
 
 	/*
     	We're using the standard promise based getUserMedia()
@@ -52,7 +61,7 @@ function startRecording() {
 		audioContext = new AudioContext();
 
 		//update the format
-		document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+//		document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
 
 		/*  assign to gumStream for later use  */
 		gumStream = stream;
@@ -97,12 +106,12 @@ function stopRecording() {
 	console.log("stopButton clicked");
 
 	//disable the stop button, enable the record too allow for new recordings
-	stopButton.disabled = true;
-	recordButton.disabled = false;
-	pauseButton.disabled = true;
+//	stopButton.disabled = true;
+//	recordButton.disabled = false;
+//	pauseButton.disabled = true;
 
 	//reset button just in case the recording is stopped while paused
-	pauseButton.innerHTML="Pause";
+//	pauseButton.innerHTML="Pause";
 
 	//tell the recorder to stop the recording
 	rec.stop();
@@ -149,27 +158,34 @@ function createDownloadLink(blob) {
 	var upload = document.createElement('a');
 	upload.href="#";
 	upload.innerHTML = "Upload";
-	upload.addEventListener("click", function(event){
-		  var xhr=new XMLHttpRequest();
-		  xhr.onload=function(e) {
-		      if(this.readyState === 4) {
-		          console.log("Server returned: ",e.target.responseText);
-		      }
-		  };
-		  var fd=new FormData();
 
-          fd.append("audio_data",blob, filename);
+      var xhr=new XMLHttpRequest();
+      xhr.onload=function(e) {
+          if(this.readyState === 4) {
+              console.log("Server returned: ",e.target.responseText);
+          }
+      };
+      var fd=new FormData();
 
-          fetch("http://127.0.0.1:5000/predict", {
-                method: "POST",
-                body: fd
-                }).then(function(response) {
+      fd.append("audio_data",blob, filename);
+
+      fetch("http://127.0.0.1:5000/predict", {
+            method: "POST",
+            body: fd
+            }).then(function(response) {
     if (response.status !== 200) {
       console.log(`Looks like there was a problem. Status code: ${response.status}`);
       return;
     }
     response.json().then(function(data) {
       console.log(data);
+
+         if (data.tone == tone){
+       document.getElementById("formats").innerHTML="You spoke the correct tone!" }
+    else{
+		//resume
+		document.getElementById("formats").innerHTML=`Incorrect, you said ${data.tone} instead of ${tone}`}
+
     });
   })
   .catch(function(error) {
@@ -177,10 +193,103 @@ function createDownloadLink(blob) {
 });
 
 
-	})
-	li.appendChild(document.createTextNode (" "))//add a space in between
-	li.appendChild(upload)//add the upload link to li
 
-	//add the li element to the ol
-	recordingsList.appendChild(li);
+//	li.appendChild(document.createTextNode (" "))//add a space in between
+//	li.appendChild(upload)//add the upload link to li
+//
+//	//add the li element to the ol
+//	recordingsList.appendChild(li);
 }
+
+function recordingTrouble() {
+  $(".js-microphone").addClass("button--microphone-recording-failure");
+  $(".js-microphone").animateCss("shake", function() {
+    $(".js-microphone").removeClass("button--microphone-recording-failure");
+  });
+}
+
+function recordingSuccess() {
+  $(".js-microphone").addClass("button--microphone-recording-success");
+  $(".js-microphone").animateCss("shake", function() {
+    $(".js-microphone").removeClass("button--microphone-recording-success");
+  });
+}
+
+$.fn.extend({
+  animateCss: function(animationName, callback) {
+    var animationEnd = (function(el) {
+      var animations = {
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'mozAnimationEnd',
+        WebkitAnimation: 'webkitAnimationEnd',
+      };
+
+      for (var t in animations) {
+        if (el.style[t] !== undefined) {
+          return animations[t];
+        }
+      }
+    })(document.createElement('div'));
+
+    this.addClass('animated ' + animationName).one(animationEnd, function() {
+      $(this).removeClass('animated ' + animationName);
+
+      if (typeof callback === 'function') callback();
+    });
+
+    return this;
+  },
+});
+
+
+///
+
+var char_button = document.getElementById("button2");
+var random = Math.random();
+var pinyin1 = document.getElementById("pinyin1");
+var phraseChinese1 = document.getElementById("phraseChinese1");
+var tone = 1;
+
+var p1 = [
+	"xīn",
+	"gōng",
+	"dà",
+	"wàn",
+	"nián",
+	"shēn",
+	"xīn",
+	"gōng"
+];
+
+var phrasesC1 = [
+	"新",
+	"恭",
+	"大",
+	"萬",
+	"年",
+	"身",
+	"心",
+	"恭"
+];
+
+var tones1 = [
+	1,
+	1,
+	4,
+	4,
+	2,
+	1,
+	1,
+	1
+];
+
+var char_shuffle = function() {
+	var random = Math.random();
+
+	pinyin1.textContent = p1[Math.floor(random * p1.length)];
+
+	phraseChinese1.textContent = phrasesC1[Math.floor(random * phrasesC1.length)];
+    tone=tones1[Math.floor(random * tones1.length)];
+}
+char_button.addEventListener("click", char_shuffle);
