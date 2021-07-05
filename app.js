@@ -169,7 +169,7 @@ function createDownloadLink(blob) {
 
       fd.append("audio_data",blob, filename);
 
-      fetch("http://127.0.0.1:5000/predict", {
+      fetch("http://54.160.123.17/predict", {
             method: "POST",
             body: fd
             }).then(function(response) {
