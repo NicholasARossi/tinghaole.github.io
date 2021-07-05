@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <title>Tinghaole - the future of learning to speak Mandarin</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'><link rel="stylesheet" href="./style.css">
+
 
 </head>
 <body>
@@ -16,24 +20,63 @@
 		<!-- Table for aligning pinyin and Chinese characters -->
 		<table>
 			<tr>
-				<th class="pinyin" id="pinyin1">tīng</th>
-				<th class="pinyin" id="pinyin2">hăo</th>
-				<th class="pinyin" id="pinyin3">le</th>
+				<th class="pinyin" id="stable">tīng</th>
+				<th class="pinyin" id="stable">hăo</th>
+				<th class="pinyin" id="stable">le</th>
 
 			</tr>
 			<tr>
-				<td id="phraseChinese1">听</td>
-				<td id="phraseChinese2">好</td>
-				<td id="phraseChinese3">了</td>
+				<td id="stable">听</td>
+				<td id="stable">好</td>
+				<td id="stable">了</td>
 
 			</tr>
 		</table>
+		<h3>Mandarin Tone Practice Powered by Deep Learning</h3>
 
-		<h2 id="phraseEnglish">(coming soon)</h2>
+		<h3>v0.0.12 Pre-Alpha</h3>
 
 
-<!-- partial -->
-  <!--<script  src="./script.js"></script>-->
+		<!--<h3>Press and hold button to record</h3>-->
+
+
+<div id="controls">
+  	 <!--&lt;!&ndash;<button id="recordButton">Record</button>&ndash;&gt;-->
+  	 <!--&lt;!&ndash;<button id="pauseButton" disabled>Pause</button>&ndash;&gt;-->
+  	 <!--&lt;!&ndash;<button id="stopButton" disabled>Stop</button>&ndash;&gt;-->
+	  <!--<button id="js-microphone" class="js-microphone button button&#45;&#45;microphone">-->
+    <!--<i class="fas fa-microphone"></i>-->
+  <!--</button>-->
+	<!--&lt;!&ndash;<button type="submit" onclick="startRecording();" data-run="0" id="recordButton"></button>&ndash;&gt;-->
+
+    <!--<i class="fas fa-microphone"></i>-->
+  <!--</button>-->
+
+			<button2 type="button2" id="button2">
+			<p>Generate New Character</p>
+		</button2>
+
+			<table class="table2">
+			<tr>
+				<th class="pinyin" id="pinyin1">xīn</th>
+			</tr>
+			<tr>
+				<td id="phraseChinese1">新</td>
+			</tr>
+		</table>
+
+  <button id="js-microphone" class="js-microphone button button--microphone">
+    <i class="fas fa-microphone"></i>
+  </button>
+    </div>
+		    <div id="formats" class="response">Press and hold mic icon while speaking the tone</div>
+
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+  	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+
+<script src="app.js"></script>
+
 
 </body>
 </html>
