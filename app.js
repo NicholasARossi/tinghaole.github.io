@@ -169,7 +169,9 @@ function createDownloadLink(blob) {
 
       fd.append("audio_data",blob, filename);
 
-      fetch("http://54.160.123.17/predict", {
+      fetch("https://predictor.tinghaole.com/predict", {
+//              mode:'cors',
+            credentials: 'include',
             method: "POST",
             body: fd
             }).then(function(response) {
