@@ -169,10 +169,12 @@ function createDownloadLink(blob) {
 
       fd.append("audio_data",blob, filename);
 
+      var myHeaders = new Headers({'Access-Control-Allow-Credentials':'true','Access-Control-Allow-Origin':'*', 'Access-Control-Allow-Origin':'*'});
+
       fetch("https://predictor.tinghaole.com/predict", {
-//              mode:'cors',
-            credentials: 'include',
+            mode:'cors',
             method: "POST",
+            headers: myHeaders,
             body: fd
             }).then(function(response) {
     if (response.status !== 200) {
