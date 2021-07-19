@@ -5,6 +5,25 @@ body {
 	text-align: center;
 }
 
+a:link {
+  color: #ffe392;
+  background-color: #ef941a;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #ffe392;
+  background-color: #ef941a;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffe392;
+  background-color: #ef941a;
+  text-decoration: underline;
+}
+
+
 table {
 	padding-top: 80px;
 	 margin: auto;

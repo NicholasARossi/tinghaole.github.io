@@ -26,6 +26,14 @@ var microphoneButton = document.getElementById("js-microphone");
 //add events to those 2 buttons
 microphoneButton.addEventListener("mousedown", startRecording);
 microphoneButton.addEventListener("mouseup", stopRecording);
+microphoneButton.addEventListener("mousedown", function(){playsound("sounds/click1.mp3")}, false);
+microphoneButton.addEventListener("mouseup", function(){playsound("sounds/click2.mp3")}, false);
+
+
+function playsound(sound_path) {
+    var snd = new Audio(sound_path);
+    snd.play();
+}
 
 function startRecording() {
 	console.log("recordButton clicked");
@@ -171,6 +179,10 @@ function createDownloadLink(blob) {
 
       var myHeaders = new Headers({'Access-Control-Allow-Credentials':'true','Access-Control-Allow-Origin':'*', 'Access-Control-Allow-Origin':'*'});
 
+
+const tinghaole_api = () => {
+document.getElementById("formats").innerHTML="Loading results (等一下）..."
+
       fetch("https://predictor.tinghaole.com/predict", {
             mode:'cors',
             method: "POST",
@@ -185,18 +197,23 @@ function createDownloadLink(blob) {
       console.log(data);
 
          if (data.tone == tone){
-       document.getElementById("formats").innerHTML="You spoke the correct tone!" }
+       document.getElementById("formats").innerHTML="You spoke the correct tone!"
+              playsound("sounds/double_yes.mp3")
+}
+
     else{
 		//resume
 		document.getElementById("formats").innerHTML=`Incorrect, you said ${data.tone} instead of ${tone}`}
-
     });
   })
   .catch(function(error) {
     console.log("Fetch error: " + error);
 });
+};
 
 
+
+tinghaole_api()
 
 //	li.appendChild(document.createTextNode (" "))//add a space in between
 //	li.appendChild(upload)//add the upload link to li
@@ -263,7 +280,14 @@ var p1 = [
 	"nián",
 	"shēn",
 	"xīn",
-	"gōng"
+	"gōng",
+	'fǎ',
+	'qǐ',
+	'xiǎo',
+	'zhǔ',
+	'yàng',
+	'qián',
+	'shí'
 ];
 
 var phrasesC1 = [
@@ -274,7 +298,14 @@ var phrasesC1 = [
 	"年",
 	"身",
 	"心",
-	"恭"
+	"恭",
+	'法',
+	'起',
+	'小',
+	'主',
+	'样',
+	'前',
+	'实'
 ];
 
 var tones1 = [
@@ -285,7 +316,14 @@ var tones1 = [
 	2,
 	1,
 	1,
-	1
+	1,
+	3,
+	3,
+	3,
+	3,
+	4,
+	2,
+	2
 ];
 
 var char_shuffle = function() {
